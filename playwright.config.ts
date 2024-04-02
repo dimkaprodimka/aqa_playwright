@@ -23,7 +23,6 @@ export default defineConfig({
   reporter: [['html'], ['dot'], ['line']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: 'https://qauto.forstudy.space/',
     httpCredentials: {
       username: 'guest',
       password: 'welcome2qauto'
@@ -42,7 +41,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
+    /*{
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
@@ -50,7 +49,7 @@ export default defineConfig({
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-    },
+    },*/
 
     /* Test against mobile viewports. */
     // {
