@@ -23,6 +23,7 @@ export default defineConfig({
   reporter: [['html'], ['dot'], ['line']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    baseURL: 'https://qauto.forstudy.space',
     httpCredentials: {
       username: 'guest',
       password: 'welcome2qauto'
