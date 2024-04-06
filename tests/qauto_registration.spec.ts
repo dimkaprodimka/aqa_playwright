@@ -17,7 +17,7 @@ test.describe('Tests for QAuto user registration', () => {
     await register_page.fillPasswordField(users.user1.password)
     await register_page.fillRepeatPasswordField(users.user1.repeat_password)
     await register_page.clickRegisterButton()
-    await expect(register_page.registerMessage).toHaveText('Registration complete')
+    await expect(register_page.elements.registerMessage).toHaveText('Registration complete')
   })
 
   test('User can not register with empty creds', async ({ page }) => {
@@ -28,11 +28,11 @@ test.describe('Tests for QAuto user registration', () => {
     await register_page.clickPasswordField()
     await register_page.clickRepeatPasswordField()
     await register_page.clickRegisterButton()
-    await expect(register_page.invalidFeedbackMessage.nth(0)).toHaveText('Name required')
-    await expect(register_page.invalidFeedbackMessage.nth(1)).toHaveText('Last name required')
-    await expect(register_page.invalidFeedbackMessage.nth(2)).toHaveText('Email required')
-    await expect(register_page.invalidFeedbackMessage.nth(3)).toHaveText('Password required')
-    await expect(register_page.invalidFeedbackMessage.nth(4)).toHaveText('Re-enter password required')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(0)).toHaveText('Name required')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(1)).toHaveText('Last name required')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(2)).toHaveText('Email required')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(3)).toHaveText('Password required')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(4)).toHaveText('Re-enter password required')
   })
 
   test('User can not register, using special characters in name and lastname', async ({ page }) => {
@@ -43,8 +43,8 @@ test.describe('Tests for QAuto user registration', () => {
     await register_page.fillPasswordField(users.user2.password)
     await register_page.fillRepeatPasswordField(users.user2.repeat_password)
     await register_page.clickRegisterButton()
-    await expect(register_page.invalidFeedbackMessage.nth(0)).toHaveText('Name is invalid')
-    await expect(register_page.invalidFeedbackMessage.nth(1)).toHaveText('Last name is invalid')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(0)).toHaveText('Name is invalid')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(1)).toHaveText('Last name is invalid')
   })
 
   test('User can not register, using invalid email format', async ({ page }) => {
@@ -55,7 +55,7 @@ test.describe('Tests for QAuto user registration', () => {
     await register_page.fillPasswordField(users.user3.password)
     await register_page.fillRepeatPasswordField(users.user3.repeat_password)
     await register_page.clickRegisterButton()
-    await expect(register_page.invalidFeedbackMessage.nth(0)).toHaveText('Email is incorrect')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(0)).toHaveText('Email is incorrect')
   })
 
   test('User can not register with weak password', async ({ page }) => {
@@ -66,10 +66,10 @@ test.describe('Tests for QAuto user registration', () => {
     await register_page.fillPasswordField(users.user4.password)
     await register_page.fillRepeatPasswordField(users.user4.repeat_password)
     await register_page.clickRegisterButton()
-    await expect(register_page.invalidFeedbackMessage.nth(0))
+    await expect(register_page.elements.invalidFeedbackMessage.nth(0))
     .toHaveText('Password has to be from 8 to 15 characters long and contain at least \
 one integer, one capital, and one small letter')
-    await expect(register_page.invalidFeedbackMessage.nth(1))
+    await expect(register_page.elements.invalidFeedbackMessage.nth(1))
     .toHaveText('Password has to be from 8 to 15 characters long and contain at least \
 one integer, one capital, and one small letter')
   })
@@ -82,6 +82,6 @@ one integer, one capital, and one small letter')
     await register_page.fillPasswordField(users.user5.password)
     await register_page.fillRepeatPasswordField(users.user5.repeat_password)
     await register_page.clickRegisterButton()
-    await expect(register_page.invalidFeedbackMessage.nth(0)).toHaveText('Passwords do not match')
+    await expect(register_page.elements.invalidFeedbackMessage.nth(0)).toHaveText('Passwords do not match')
   })
 })
