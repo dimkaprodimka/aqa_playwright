@@ -42,5 +42,14 @@ export const users = {
         email: 'aqa-julaif@gmail.com',
         password: 'Julia_Pass123',
         repeat_password: 'Julia_Pass456'
+    },
+
+    // Empty creds
+    user6: {
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+        repeat_password: ''
     }
 }
