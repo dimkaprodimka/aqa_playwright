@@ -8,6 +8,8 @@ export class RegistrationPage {
     constructor(page: Page) {
     this.page = page
     this.elements = {
+        signInButton: page.locator("//button[text()='Sign In']"),
+        registrationButton: page.locator("//button[text()='Registration']"),
         nameField: page.locator("input#signupName"),
         lastNameField: page.locator("input#signupLastName"),
         emailField: page.locator("input#signupEmail"),
@@ -19,47 +21,16 @@ export class RegistrationPage {
     }
     }
 
-    async fillNameField(name) {
+    async userRegistration(name:string, lastname: string, email: string, 
+        password: string, repeat_password: string) {
+        await this.elements.signInButton.click()
+        await this.elements.registrationButton.click()
         await this.elements.nameField.fill(name)
-    }
-
-    async clickNameField() {
-        await this.elements.nameField.click()
-    }
-
-    async fillLastNameField(lastname) {
         await this.elements.lastNameField.fill(lastname)
-    }
-
-    async clickLastNameField() {
-        await this.elements.lastNameField.click()
-    }
-
-    async fillEmailField(email) {
         await this.elements.emailField.fill(email)
-    }
-
-    async clickEmailField() {
-        await this.elements.emailField.click()
-    }
-
-    async fillPasswordField(password) {
         await this.elements.passwordField.fill(password)
-    }
-
-    async clickPasswordField() {
-        await this.elements.passwordField.click()
-    }
-
-    async fillRepeatPasswordField(repeat_password) {
         await this.elements.repeatPasswordField.fill(repeat_password)
-    }
-
-    async clickRepeatPasswordField() {
-        await this.elements.repeatPasswordField.click()
-    }
-
-    async clickRegisterButton() {
         await this.elements.registerButton.click({force: true})
     }
+
 }
