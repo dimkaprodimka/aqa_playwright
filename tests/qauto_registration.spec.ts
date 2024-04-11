@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/')
 })
 
-test.describe('Tests for QAuto user registration', () => {
+test.describe('Tests for QAuto user registration', { tag: ["@smoke", "@regression"] }, () => {
   test('User can successfully register with correct creds', async ({ page }) => {
     const register_page = new RegistrationPage(page)
     await register_page.userRegistration(users.user1.name, users.user1.lastname, users.user1.email, 

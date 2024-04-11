@@ -1,4 +1,7 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
+import { configDotenv } from "dotenv"
+
+configDotenv({path: "./env/.env"})
 
 /**
  * Read environment variables from file.
@@ -23,10 +26,11 @@ export default defineConfig({
   reporter: [['html'], ['dot'], ['line']],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: 'https://qauto.forstudy.space',
+    //baseURL: 'https://qauto.forstudy.space',
+    baseURL: process.env.ENV_URL,
     httpCredentials: {
-      username: 'guest',
-      password: 'welcome2qauto'
+      username: `${process.env.HTTP_CREDS_USERNAME}`,
+      password: `${process.env.HTTPS_CREDS_PASSWORD}`
     },
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
