@@ -22,8 +22,16 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+  reporter: './my-awesome-reporter.ts',
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html'], ['dot'], ['line']],
+  /*reporter: [['html', {'open': 'on-failure'}], ['dot'], ['line'],
+  [
+    '@testomatio/reporter/lib/adapter/playwright.js',
+    {
+      apiKey: process.env.TESTOMAT,
+    },
+  ]
+],*/
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     //baseURL: 'https://qauto.forstudy.space',
@@ -36,7 +44,9 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    //trace: 'retain-on-first-failure',
+    //screenshot: 'only-on-failure',
+    //video: 'retain-on-failure'
   },
 
   /* Configure projects for major browsers */
