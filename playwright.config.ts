@@ -22,7 +22,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  reporter: './my-awesome-reporter.ts',
+  reporter: [['./my-awesome-reporter.ts'], ['html']],
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   /*reporter: [['html', {'open': 'on-failure'}], ['dot'], ['line'],
   [
@@ -51,9 +51,13 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'],
+      storageState: 'playwright/.auth/user.json',
+       },
+       dependencies: ['setup'],
     },
 
     /*{
