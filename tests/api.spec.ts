@@ -83,7 +83,7 @@ test.describe('API tests', () => {
   });
 
   test('posting new car with wrong brand shows error', async ({ request }) => {
-    const postNewCar = await request.post("/api/my_cars", {
+    const postNewCar = await request.post("/api/cars", {
       data: {
         "carBrandId": 10,
         "carModelId": 1,
@@ -93,7 +93,7 @@ test.describe('API tests', () => {
     const respBody = await postNewCar.json()
     expect(await respBody).toMatchObject({
       "status": "error",
-      "message": "Not found"
+      "message": "Brand not found"
     });
   });
 });
