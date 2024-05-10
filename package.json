@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "pretest": "npx jest api-testing/login.test.ts",
+    "test": "npx jest api-testing/users.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@playwright/test": "^1.43.0",
     "@testomatio/reporter": "^1.4.0",
     "@types/fs-extra": "^11.0.4",
