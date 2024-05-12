@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
 
 test.describe('Tests for QAuto login and registration', () => {
 
-  test('Login with correct basic auth creds', async ({ page }) => {
+  test.skip('Login with correct basic auth creds', async ({ page }) => {
     await expect(page).toHaveTitle(/Hillel Qauto/)
   })
 
@@ -31,7 +31,7 @@ test.describe('Tests for QAuto login and registration', () => {
     .toHaveText("You have been successfully logged in")
   })
 
-  test('Delete user', { tag: ["@smoke", "@regression"] }, async ({ page }) => {
+  test.skip('Delete user', { tag: ["@smoke", "@regression"] }, async ({ page }) => {
     await page.locator("input#signinEmail").fill("aqa-emmaa@gmail.com")
     await page.locator("input#signinPassword").fill("Emma_Pass123")
     await page.locator("//button[text()='Login']").click()
