@@ -5,5 +5,7 @@ node_modules/
 /playwright/.cache/
 /env/
 /playwright/.auth/
-/api-testing/api-token.json/
-/api-testing/user.test.ts/
+/api-testing/api-data.json/
+/api-testing/users.test.ts/
+/api-testing/login.test.ts/
+/api-testing/controllers.ts/

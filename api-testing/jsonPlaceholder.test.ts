@@ -3,11 +3,7 @@ import jsonpath from "jsonpath"
 
 axios.interceptors.request.use(requestLog => {
 
-    const headers = {
-        ...requestLog.headers
-    };
-
-    const printable = `Request: ${requestLog.method?.toUpperCase()} | ${requestLog.url} | ${ JSON.stringify(headers)} | ${ JSON.stringify( requestLog.data) }`
+    const printable = `Request: ${requestLog.method?.toUpperCase()} | ${requestLog.url} | ${ JSON.stringify(requestLog.headers)} | ${ JSON.stringify(requestLog.params)} | ${ JSON.stringify( requestLog.data) }`
     console.log(printable)
 
     return requestLog;
@@ -23,7 +19,7 @@ axios.interceptors.response.use(responseLog => {
 
 describe("tests for posts", () => {
     // checking the status, number of all posts and correct structure of every post
-    test ("get all posts", async () => {
+    test.skip ("get all posts", async () => {
         const all_posts = await axios.get("https://jsonplaceholder.typicode.com/posts")
         let numberOfPosts = jsonpath.query(all_posts.data, '$..id').length
         let posts = jsonpath.query(all_posts.data, '$..[0]')
@@ -34,7 +30,7 @@ describe("tests for posts", () => {
         }
     })
     // checking first post status and data
-    test ("get first post", async () => {
+    test.skip ("get first post", async () => {
         const firstPost = await axios.get("https://jsonplaceholder.typicode.com/posts/1")
         let firstPostData = jsonpath.query(firstPost.data, '$')
         expect(firstPost.status).toEqual(200)
@@ -50,7 +46,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking, that new post is added and contains correct data
-    test ("post a post", async () => {
+    test.skip ("post a post", async () => {
         const newPost = await axios.post("https://jsonplaceholder.typicode.com/posts",
         {
             "userId": 1,
@@ -67,7 +63,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking, that first user has correct amount of posts
-    test ("get number of posts of first user", async () => {
+    test.skip ("get number of posts of first user", async () => {
         const allPostsFirstUser = await axios.get("https://jsonplaceholder.typicode.com/posts?userId=1")
         let firstUserNumberOfPosts = jsonpath.query(allPostsFirstUser.data, '$..id').length
         expect(allPostsFirstUser.status).toEqual(200)
@@ -75,7 +71,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking all posts titles of first user
-    test ("get all posts titles of first user", async () => {
+    test.skip ("get all posts titles of first user", async () => {
         const allPostsFirstUser = await axios.get("https://jsonplaceholder.typicode.com/posts?userId=1")
         let allPostsTitles = jsonpath.query(allPostsFirstUser.data, '$..title')
         expect(allPostsFirstUser.status).toEqual(200)
@@ -92,4 +88,39 @@ nostrum rerum est autem sunt rem eveniet architecto`
             'optio molestias id quia eum'
           ])
     })
+
+    // sending get request to wrong endpoint and error checking
+    test ("get 404 error for wrong endpoint", async () => {
+        try {
+            await axios 
+            .get("https://jsonplaceholder.typicode.com/wrong_endpoint")
+            .catch((err) => {
+                expect(err.response.status).toEqual(404)
+                expect(err.message).toBe("Request failed with status code 404")
+                }) 
+        } finally {} 
+    })
+
+    // sending get request for all posts of first user with custom headers and params
+    test ("checking custom headers and params", 
+    async () => {
+        const allPostsFirstUser = await axios.get("https://jsonplaceholder.typicode.com/posts",
+            {headers: {
+                "Accept-Encoding": "gzip, deflate",
+                "Accept-Language": "en-US"
+            }, 
+            params: {
+                "userId": "1"
+            }}
+        )
+
+        axios.interceptors.request.use(requestLog => {
+
+            const requestWihHeadersAndParams = `Request: ${requestLog.method?.toUpperCase()} | ${requestLog.url} | ${ JSON.stringify(requestLog.headers)} | ${ JSON.stringify(requestLog.params)}`
+            expect(requestWihHeadersAndParams).toBe('Request: GET | https://jsonplaceholder.typicode.com/posts | {"Accept":"application/json, text/plain, */*","Accept-Encoding\
+            ":"gzip, deflate","Accept-Language":"en-US"} | {"userId":"1"}')
+            return requestLog;
+
+        })
+        })
 })

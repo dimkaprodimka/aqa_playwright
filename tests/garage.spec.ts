@@ -1,5 +1,5 @@
-import { test, expect } from '../util/garage.fixture.ts';
-import { cars } from '../cars_data.ts';
+import { test, expect } from "../util/garage.fixture"
+import { cars } from "../cars_data"
 
 test.describe('Garage tests', () => {
     test('adding car is successful', async ({ addingCar, page }) => {
