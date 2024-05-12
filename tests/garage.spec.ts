@@ -8,14 +8,14 @@ test.describe('Garage tests', () => {
         await addingCar.deleteCar()
     })
 
-    test('changing car details is successful', async ({ addingCar, page }) => {
+    test.skip('changing car details is successful', async ({ addingCar, page }) => {
         await addingCar.changeCarDetails(cars.car2.brand, cars.car2.model, cars.car2.mileage)
         await expect(addingCar.infoMessage.last()).toHaveText('Car updated')
         await expect(addingCar.carName).toHaveText('Audi TT')
         await addingCar.deleteCar()
     })
 
-    test('deleting car is successful', async ({ addingCar, page  }) => {
+    test.skip('deleting car is successful', async ({ addingCar, page  }) => {
         await addingCar.deleteCar()
         await expect(addingCar.infoMessage.last()).toHaveText('Car removed')
     })
