@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "npx jest api-testing/login.test.ts",
-    "test": "npx jest api-testing/users.test.ts"
+    "test": "npx jest api-testing/jsonPlaceholder.test.ts"
   },
   "keywords": [],
   "author": "",
