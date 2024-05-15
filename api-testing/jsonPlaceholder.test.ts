@@ -19,7 +19,7 @@ axios.interceptors.response.use(responseLog => {
 
 describe("tests for posts", () => {
     // checking the status, number of all posts and correct structure of every post
-    test.skip ("get all posts", async () => {
+    test ("get all posts", async () => {
         const all_posts = await axios.get("https://jsonplaceholder.typicode.com/posts")
         let numberOfPosts = jsonpath.query(all_posts.data, '$..id').length
         let posts = jsonpath.query(all_posts.data, '$..[0]')
@@ -30,7 +30,7 @@ describe("tests for posts", () => {
         }
     })
     // checking first post status and data
-    test.skip ("get first post", async () => {
+    test ("get first post", async () => {
         const firstPost = await axios.get("https://jsonplaceholder.typicode.com/posts/1")
         let firstPostData = jsonpath.query(firstPost.data, '$')
         expect(firstPost.status).toEqual(200)
@@ -46,7 +46,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking, that new post is added and contains correct data
-    test.skip ("post a post", async () => {
+    test ("post a post", async () => {
         const newPost = await axios.post("https://jsonplaceholder.typicode.com/posts",
         {
             "userId": 1,
@@ -63,7 +63,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking, that first user has correct amount of posts
-    test.skip ("get number of posts of first user", async () => {
+    test ("get number of posts of first user", async () => {
         const allPostsFirstUser = await axios.get("https://jsonplaceholder.typicode.com/posts?userId=1")
         let firstUserNumberOfPosts = jsonpath.query(allPostsFirstUser.data, '$..id').length
         expect(allPostsFirstUser.status).toEqual(200)
@@ -71,7 +71,7 @@ nostrum rerum est autem sunt rem eveniet architecto`
     })
 
     // checking all posts titles of first user
-    test.skip ("get all posts titles of first user", async () => {
+    test ("get all posts titles of first user", async () => {
         const allPostsFirstUser = await axios.get("https://jsonplaceholder.typicode.com/posts?userId=1")
         let allPostsTitles = jsonpath.query(allPostsFirstUser.data, '$..title')
         expect(allPostsFirstUser.status).toEqual(200)
