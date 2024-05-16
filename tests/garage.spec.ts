@@ -2,7 +2,7 @@ import { test, expect } from "../util/garage.fixture"
 import { cars } from "../cars_data"
 
 test.describe('Garage tests', () => {
-    test.use({ storageState: 'playwright/.auth/user.json' });
+    test.use({ storageState: '../playwright/.auth/user.json' });
     test('adding car is successful', async ({ addingCar, page }) => {
         await expect(addingCar.infoMessage).toHaveText('Car added')
         await expect(addingCar.carName).toHaveText('Porsche 911')
