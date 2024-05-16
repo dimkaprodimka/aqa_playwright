@@ -17,6 +17,7 @@ export default defineConfig({
       password: `${process.env.HTTPS_CREDS_PASSWORD}`
     },
     screenshot: 'only-on-failure',
+    trace: 'retain-on-first-failure',
   },
   projects: [
     {
