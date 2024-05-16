@@ -54,6 +54,6 @@ export class GaragePage {
     }
 
     async goToFuelExpenses() {
-        await this.elements.fuelExpensesLink.click()
+        await this.page.goto("/panel/expenses")
     }
 }
