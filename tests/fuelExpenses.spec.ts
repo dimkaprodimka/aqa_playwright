@@ -4,7 +4,7 @@ import { test, expect } from "../util/garage.fixture"
 
 test.describe('Fuel Expenses tests', () => {
 
-    test.use({ storageState: 'playwright/.auth/user.json' });
+    test.use({ storageState: '../playwright/.auth/user.json' });
 
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
