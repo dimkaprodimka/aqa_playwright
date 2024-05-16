@@ -4,13 +4,12 @@ import { test, expect } from "../util/garage.fixture"
 
 test.describe('Fuel Expenses tests', () => {
 
-    test.use({ storageState: '../playwright/.auth/user.json' });
-
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
     const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     const yyyy = today.getFullYear();
-
+    
+    test.use({ storageState: '../playwright/.auth/user.json' });
     test('adding fuel expense is successful', async ({ addingCar, page }) => {
         await addingCar.goToFuelExpenses()
         const fuelExpensePage = new FuelExpensesPage(page)
