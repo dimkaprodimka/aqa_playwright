@@ -9,7 +9,6 @@ test.describe('Instructions tests', () => {
         await instructionsPage.searchInstruction('BMW', 'X5')
         await page.waitForTimeout(500);
         const titles = await instructionsPage.instructionTitle.allTextContents()
-        console.log(titles)
         for (const title of titles) {expect(title).toContain("BMW X5")}
         })
     })
