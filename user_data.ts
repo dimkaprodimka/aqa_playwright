@@ -1,5 +1,5 @@
 export const users = {
-    // correct creds
+    // correct creds for login
     user1: {
         name: 'Emma',
         lastname: 'Adams',

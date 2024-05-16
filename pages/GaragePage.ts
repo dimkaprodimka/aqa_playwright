@@ -6,6 +6,7 @@ export class GaragePage {
     elements: Record<string, Locator>
     carName: Locator
     infoMessage: Locator
+    garagePageHeader: Locator
 
     constructor(page: Page) {
     this.page = page
@@ -18,10 +19,12 @@ export class GaragePage {
         editCarIcon: page.locator(".icon.icon-edit"),
         saveChangesButton: page.locator("//button[text()='Save']"),
         removeCarButton: page.locator("//button[text()='Remove car']"),
-        finalRemoveButton: page.locator("//button[text()='Remove']")
+        finalRemoveButton: page.locator("//button[text()='Remove']"),
+        fuelExpensesLink: page.locator(".header_nav.d-flex.align-items-center>a[routerlink='/panel/expenses']"),
     }
     this.infoMessage = page.locator("div.alert.alert-success p")
     this.carName = page.locator(".car_name.h2")
+    this.garagePageHeader = page.locator("//h1")
 }
 
     async openPage() {
@@ -48,5 +51,9 @@ export class GaragePage {
         await this.elements.editCarIcon.click()
         await this.elements.removeCarButton.click()
         await this.elements.finalRemoveButton.click()
+    }
+
+    async goToFuelExpenses() {
+        await this.elements.fuelExpensesLink.click()
     }
 }

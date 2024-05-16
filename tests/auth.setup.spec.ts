@@ -9,6 +9,5 @@ setup('authenticate', async ({ page }) => {
   await loginPage.openPage()
   await loginPage.userLogin(users.user1.email, users.user1.password)
   await expect(page.getByRole("button", {name: "Add Car"})).toBeVisible()
-  //await page.waitForURL("/panel/garage")
   await page.context().storageState({ path: authFile });
 });

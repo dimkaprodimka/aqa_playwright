@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest api-testing/jsonPlaceholder.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.43.0",
+    "@playwright/test": "^1.44.0",
     "@testomatio/reporter": "^1.4.0",
     "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.12",
