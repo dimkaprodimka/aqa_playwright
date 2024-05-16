@@ -4,7 +4,6 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /env/
-/playwright/.auth/
 /api-testing/api-data.json/
 /api-testing/users.test.ts/
 /api-testing/login.test.ts/
