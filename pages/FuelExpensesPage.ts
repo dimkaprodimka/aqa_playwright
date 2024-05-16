@@ -36,6 +36,7 @@ export class FuelExpensesPage {
     }
 
     async changeExpense(milleage: string, litters: string, cost: string) {
+        await this.page.waitForTimeout(500);
         await this.elements.tableCell.nth(4).click()
         await this.elements.editIcon.click()
         await this.elements.addExpenseMilleage.clear()
@@ -48,6 +49,7 @@ export class FuelExpensesPage {
     }
 
     async deleteExpense() {
+        this.page.waitForTimeout(500);
         await this.elements.tableCell.nth(4).click()
         await this.elements.deleteIcon.click()
         await this.elements.removeButton.click()
