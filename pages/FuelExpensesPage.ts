@@ -29,7 +29,7 @@ export class FuelExpensesPage {
         await this.elements.addExpenseButton.click()
         await this.elements.addExpenseMilleage.click()
         await this.elements.addExpenseMilleage.clear()
-        await this.page.waitForTimeout(500);
+        await this.elements.addExpenseMilleage.click()
         await this.elements.addExpenseMilleage.fill(milleage)
         await this.elements.addExpenseLitters.fill(litters)
         await this.elements.addExpenseCost.fill(cost)
@@ -40,7 +40,7 @@ export class FuelExpensesPage {
         await this.elements.tableCell.nth(4).hover()
         await this.elements.editIcon.click()
         await this.elements.addExpenseMilleage.clear()
-        await this.page.waitForTimeout(500);
+        await this.elements.addExpenseMilleage.click()
         await this.elements.addExpenseMilleage.fill(milleage)
         await this.elements.addExpenseLitters.clear()
         await this.elements.addExpenseLitters.fill(litters)
