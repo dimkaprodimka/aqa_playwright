@@ -39,11 +39,11 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v4
         with:
-          path: ./node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('./package-lock.json') }}
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ hashFiles('./package-lock.json') }}
             ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
@@ -51,20 +51,12 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: |
-          if [ "${{ github.event.inputs.smoke }}" = "true" && "${{ github.event.inputs.browser }}" ]; then
-            npx playwright test --project ${{ github.event.inputs.browser }} --grep @smoke ${{ github.event.inputs.spec }}
-          else
-            npx playwright test --project ${{ github.event.inputs.browser }} ${{ github.event.inputs.spec }}
-          fi
-          if [ "${{ github.event.inputs.smoke }}" = "true" && !${{ github.event.inputs.browser }} ]; then
-            npx playwright test --grep @smoke ${{ github.event.inputs.spec }}
-          else
-            npx playwright test ${{ github.event.inputs.spec }}
-          fi
-          if [ "${{ github.event.inputs.browser }}" ]; then
-            npx playwright test --project ${{ github.event.inputs.browser }} ${{ github.event.inputs.spec }}
-          else
-            npx playwright test ${{ github.event.inputs.spec }}
+          if [[ "${{ inputs.smoke }}" == "true" ]]; then
+            echo "Running smoke tests..."
+            npx playwright test --project=${{ inputs.browser }} --grep @smoke
+          elif [[ "${{ inputs.smoke }}" == "false" ]]; then
+            echo "Running all tests matching: ${{ inputs.spec }}"
+            npx playwright test ${{ inputs.spec }} --project=${{ inputs.browser }}
           fi
       - uses: actions/upload-artifact@v4
         if: always()
