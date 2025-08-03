@@ -54,9 +54,6 @@ jobs:
         if: ${{ github.event.inputs.smoke == 'true' }}
         run: |
           echo "Running smoke tests"
-          pwd
-          ls
-          cd ~
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
       - name: Run Playwright tests
         if: ${{ github.event.inputs.smoke != 'true' }}
