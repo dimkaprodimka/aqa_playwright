@@ -68,8 +68,7 @@ jobs:
           wget 'http://http.us.debian.org/debian/pool/main/w/wpebackend-fdo/libwpebackend-fdo-1.0-1_1.16.0-1_amd64.deb'
           wget 'http://http.us.debian.org/debian/pool/main/w/wpewebkit/libwpewebkit-2.0-1_2.48.3-1_amd64.deb'
           wget 'http://http.us.debian.org/debian/pool/main/libw/libwpe/libwpe-1.0-1_1.16.2-1_amd64.deb'
-          sudo dpkg -i *.deb
-          sudo apt-get install -f
+          sudo apt-get install -f *.deb
           ls -la /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
           ldd /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
       # - name: Create .env file
