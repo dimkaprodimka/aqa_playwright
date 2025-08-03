@@ -26,7 +26,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
@@ -63,6 +63,8 @@ jobs:
         run: npx playwright install --with-deps
       - name: Check dependency safari
         run: |
+          sudo apt-get update
+          sudo apt-get install -y libwpe*
           ls -la /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
           ldd /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
       # - name: Create .env file
