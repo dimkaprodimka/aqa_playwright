@@ -10,7 +10,10 @@ export class FuelExpensesPage {
     constructor(page: Page) {
     this.page = page
     this.elements = {
-        addExpenseButton: page.locator("//button[text()='Add an expense']"),
+        //addExpenseButton: page.locator("//button[text()='Add an expense']"),
+        //addExpenseButton: page.locator("button:has-text('Add an expense')"),
+        //addExpenseButton: page.getByRole('button', {name:'Add an expense' }),
+        addExpenseButton: page.getByText('Add an expense'),
         addExpenseMilleage: page.locator("#addExpenseMileage"),
         addExpenseLitters: page.locator("#addExpenseLiters"),
         addExpenseCost: page.locator("#addExpenseTotalCost"),

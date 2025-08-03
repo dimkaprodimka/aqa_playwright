@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { users } from '../user_data'
+import { users } from '../testdata/user_data'
 import { RegistrationPage } from '../pages/RegistrationPage'
 import { fakerEN } from "@faker-js/faker"
 

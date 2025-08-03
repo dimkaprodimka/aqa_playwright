@@ -1,22 +1,22 @@
 import { test, expect } from "../util/garage.fixture"
-import { cars } from "../cars_data"
+import { cars } from "../testdata/cars_data"
 
 test.describe('Garage tests', () => {
     test.use({ storageState: '../playwright/.auth/user.json' });
-    test('adding car is successful', async ({ addingCar, page }) => {
+    test('adding car is successful', async ({ addingCar }) => {
         await expect(addingCar.infoMessage).toHaveText('Car added')
         await expect(addingCar.carName).toHaveText('Porsche 911')
         await addingCar.deleteCar()
     })
 
-    test('changing car details is successful', async ({ addingCar, page }) => {
+    test('changing car details is successful', async ({ addingCar }) => {
         await addingCar.changeCarDetails(cars.car2.brand, cars.car2.model, cars.car2.mileage)
         await expect(addingCar.infoMessage.last()).toHaveText('Car updated')
         await expect(addingCar.carName).toHaveText('Audi TT')
         await addingCar.deleteCar()
     })
 
-    test('deleting car is successful', async ({ addingCar, page  }) => {
+    test('deleting car is successful', async ({ addingCar }) => {
         await addingCar.deleteCar()
         await expect(addingCar.infoMessage.last()).toHaveText('Car removed')
     })

@@ -1,6 +1,6 @@
 import { test as base } from '@playwright/test';
 import { GaragePage } from '../pages/GaragePage';
-import { cars } from '../cars_data';
+import { cars } from '../testdata/cars_data';
 
 type userGaragePage = {
     addingCar: GaragePage

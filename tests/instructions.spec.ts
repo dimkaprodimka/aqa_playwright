@@ -2,7 +2,7 @@ import { test, expect } from "../util/garage.fixture"
 import { InstructionsPage } from "../pages/InstructionsPage";
 
 test.describe('Instructions tests', () => {
-    test.use({ storageState: 'playwright/.auth/user.json' });
+    test.use({ storageState: '../playwright/.auth/user.json' });
     test('searching for instruction is successful', async ({ page }) => {
         const instructionsPage = new InstructionsPage(page)
         await instructionsPage.openPage()

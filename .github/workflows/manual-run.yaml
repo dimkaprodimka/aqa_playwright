@@ -1,0 +1,58 @@
+name: Manual Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser'
+        required: false
+        default: 'chromium'
+        type: choice
+        options:
+        - chromium
+        - firefox
+        - safari
+      spec:
+        description: 'Path to the spec file'
+        required: false
+        default: './tests/*.ts'
+        type: string
+      smoke:
+        description: 'Run smoke tests only'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+      - run: mkdir env && echo "${{ secrets.SITE }}" > env/.env
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: |
+          if [ "${{ github.event.inputs.smoke }}" = "true" && "${{ github.event.inputs.browser }}" ]; then
+            npx playwright test --project ${{ github.event.inputs.browser }} --grep @smoke ${{ github.event.inputs.spec }}
+          else
+            npx playwright test --project ${{ github.event.inputs.browser }} ${{ github.event.inputs.spec }}
+          fi
+          if [ "${{ github.event.inputs.smoke }}" = "true" && !${{ github.event.inputs.browser }} ]; then
+            npx playwright test --grep @smoke ${{ github.event.inputs.spec }}
+          else
+            npx playwright test ${{ github.event.inputs.spec }}
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
