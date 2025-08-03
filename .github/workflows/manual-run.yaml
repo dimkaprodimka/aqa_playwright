@@ -50,6 +50,11 @@ jobs:
           else
             npx playwright test ${{ github.event.inputs.spec }}
           fi
+          if [ "${{ github.event.inputs.browser }}" ]; then
+            npx playwright test --project ${{ github.event.inputs.browser }} ${{ github.event.inputs.spec }}
+          else
+            npx playwright test ${{ github.event.inputs.spec }}
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
