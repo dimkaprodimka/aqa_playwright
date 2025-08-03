@@ -61,20 +61,25 @@ jobs:
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+      - name: Create .env file
+        run: mkdir -p env && echo "${{ secrets.SITE }}" > env/.env
       - name: Run Playwright tests smoke
-        if: ${{ github.event.inputs.smoke == 'true' }}
+        if: ${{ github.event.inputs.smoke == 'true' }} && ${{ github.event.inputs.browser != 'all' }}
         run: |
           echo "Running smoke tests"
-          pwd
-          ls -la
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
+      - name: Run Playwright tests smoke all
+        if: ${{ github.event.inputs.smoke == 'true' }} && ${{ github.event.inputs.browser == 'all' }}
+        run: |
+          echo "Running smoke tests all"
+          npx playwright test ${{ github.event.inputs.spec }} --grep @smoke
       - name: Run Playwright tests
-        if: inputs.smoke != 'true'  && inputs.browser != 'all'
+        if: ${ github.event.inputs.smoke != 'true' } && ${{ github.event.inputs.browser != 'all' }}
         run: |
           echo "Running all tests"
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }}
       - name: Run Playwright tests in all browsers
-        if: ${{ github.event.inputs.browser == 'all' }}
+        if: ${{ github.event.inputs.smoke != 'true' }} && ${{ github.event.inputs.browser == 'all' }}
         run: npx playwright test ${{ github.event.inputs.spec }}
       - uses: actions/upload-artifact@v4
         if: always()
