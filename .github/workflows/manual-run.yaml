@@ -59,15 +59,13 @@ jobs:
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
       - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps
+        #if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps webkit
       - name: Check dependency safari
         run: |
-          sudo apt-get update
-          sudo apt-get install -y  libwoff2dec	libvpx	libevent-2	libopus	libharfbuzz-icu	libgstallocators-1	libgstapp-1	libgstpbutils-1	libgstaudio-1	libgsttag-1	libgstvideo-1	libgstgl-1	libgstcodecparsers-1	libgstfft-1	libjxl	libsoup-3	libflite	libflite_usenglish	libflite_cmu_grapheme_lang	libflite_cmu_grapheme_lex	libflite_cmu_indic_lang	libflite_cmu_indic_lex	libflite_cmulex	libflite_cmu_time_awb	libflite_cmu_us_awb	libflite_cmu_us_kal16	libflite_cmu_us_kal	libflite_cmu_us_rms	libflite_cmu_us_slt || sudo apt-get install -f
-           
           ls -la /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
           ldd /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
+          /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
       # - name: Create .env file
       #   run: mkdir -p env && echo "${{ secrets.ENV }}" > env/.env
       # - name: Run smoke tests in one browser
