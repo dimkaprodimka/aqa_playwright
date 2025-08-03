@@ -69,7 +69,7 @@ jobs:
           ls -la
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
       - name: Run Playwright tests
-        if: ${{ github.event.inputs.smoke != 'true' }} && ${{ github.event.inputs.browser != 'all' }}
+        if: inputs.smoke != 'true'  && inputs.browser != 'all'
         run: |
           echo "Running all tests"
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }}
