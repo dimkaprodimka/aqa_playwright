@@ -3,7 +3,7 @@ import { LoginPage } from '../pages/LoginPage';
 
 const authFile = '../playwright/.auth/user.json';
 
-setup('authenticate', async ({ page }) => {
+setup('authenticate', { tag: ["@smoke"] }, async ({ page }) => {
   const loginPage = new LoginPage(page)
   await loginPage.openPage()
   await loginPage.userLogin(`${process.env.LOGIN_EMAIL}`, `${process.env.LOGIN_PASSWORD}`)
