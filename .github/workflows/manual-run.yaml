@@ -61,6 +61,10 @@ jobs:
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+      - name: Install missing dependencies for WebKit
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwoff1 libwoff-dev
       - name: Create .env file
         run: mkdir -p env && echo "${{ secrets.ENV }}" > env/.env
       - name: Run Playwright tests smoke
