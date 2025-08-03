@@ -22,7 +22,7 @@ export default defineConfig({
   projects: [
     { name: 'setup chromium', testMatch: "./tests/auth.setup.spec.ts", use: { ...devices['Desktop Chrome'] } },
     { name: 'setup firefox', testMatch: "./tests/auth.setup.spec.ts", use: { ...devices['Desktop Firefox'] } },
-    { name: 'setup safari', testMatch: "./tests/auth.setup.spec.ts", use: { ...devices['Desktop Safari'] } },
+    { name: 'setup webkit', testMatch: "./tests/auth.setup.spec.ts", use: { ...devices['Desktop Safari'] } },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome']
@@ -36,9 +36,9 @@ export default defineConfig({
        dependencies: ['setup firefox']
     },
     {
-      name: 'safari',
+      name: 'webkit',
       use: { ...devices['Desktop Safari']
        },
-       dependencies: ['setup safari']
+       dependencies: ['setup webkit']
     }]
 });
