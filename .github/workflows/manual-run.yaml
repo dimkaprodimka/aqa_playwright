@@ -45,13 +45,18 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: |
+          npm ci
+          npx playwright install --with-deps
+      #- name: Install Playwright Browsers
+      #  run: npx playwright install --with-deps
       - name: Run Playwright tests smoke
         if: ${{ github.event.inputs.smoke == 'true' }}
         run: |
           echo "Running smoke tests"
+          pwd
+          ls
+          cd ~
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
       - name: Run Playwright tests
         if: ${{ github.event.inputs.smoke != 'true' }}
