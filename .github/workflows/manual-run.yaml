@@ -61,28 +61,24 @@ jobs:
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
-      - name: Install missing dependencies for WebKit
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwoff1 libwoff-dev libvpx-dev libevent-dev libnghttp2-dev libopus-dev libharfbuzz-dev
       - name: Create .env file
         run: mkdir -p env && echo "${{ secrets.ENV }}" > env/.env
-      - name: Run Playwright tests smoke
+      - name: Run smoke tests in one browser
         if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser != 'all' }}
         run: |
-          echo "Running smoke tests"
+          echo "Running smoke tests in one browser"
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
-      - name: Run Playwright tests smoke all
+      - name: Run smoke tests in all browsers
         if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser == 'all' }}
         run: |
-          echo "Running smoke tests all"
+          echo "Running smoke tests in all browsers"
           npx playwright test ${{ github.event.inputs.spec }} --grep @smoke
-      - name: Run Playwright tests
+      - name: Run all / selected tests in one browser
         if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser != 'all' }}
         run: |
-          echo "Running all tests"
+          echo "Running all / selected tests in one browser"
           npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }}
-      - name: Run Playwright tests in all browsers
+      - name: Run all / selected tests in all browsers
         if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser == 'all' }}
         run: npx playwright test ${{ github.event.inputs.spec }}
       - uses: actions/upload-artifact@v4
