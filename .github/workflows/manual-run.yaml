@@ -61,29 +61,33 @@ jobs:
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
-      - name: Create .env file
-        run: mkdir -p env && echo "${{ secrets.ENV }}" > env/.env
-      - name: Run smoke tests in one browser
-        if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser != 'all' }}
+      - name: Check dependency safari
         run: |
-          echo "Running smoke tests in one browser"
-          npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
-      - name: Run smoke tests in all browsers
-        if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser == 'all' }}
-        run: |
-          echo "Running smoke tests in all browsers"
-          npx playwright test ${{ github.event.inputs.spec }} --grep @smoke
-      - name: Run all / selected tests in one browser
-        if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser != 'all' }}
-        run: |
-          echo "Running all / selected tests in one browser"
-          npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }}
-      - name: Run all / selected tests in all browsers
-        if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser == 'all' }}
-        run: npx playwright test ${{ github.event.inputs.spec }}
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+          ls -la /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
+          ldd /home/runner/.cache/ms-playwright/webkit-2051/minibrowser-wpe/bin/MiniBrowser
+      # - name: Create .env file
+      #   run: mkdir -p env && echo "${{ secrets.ENV }}" > env/.env
+      # - name: Run smoke tests in one browser
+      #   if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser != 'all' }}
+      #   run: |
+      #     echo "Running smoke tests in one browser"
+      #     npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }} --grep @smoke 
+      # - name: Run smoke tests in all browsers
+      #   if: ${{ github.event.inputs.smoke == 'true' && github.event.inputs.browser == 'all' }}
+      #   run: |
+      #     echo "Running smoke tests in all browsers"
+      #     npx playwright test ${{ github.event.inputs.spec }} --grep @smoke
+      # - name: Run all / selected tests in one browser
+      #   if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser != 'all' }}
+      #   run: |
+      #     echo "Running all / selected tests in one browser"
+      #     npx playwright test ${{ github.event.inputs.spec }} --project ${{ github.event.inputs.browser }}
+      # - name: Run all / selected tests in all browsers
+      #   if: ${{ github.event.inputs.smoke != 'true' && github.event.inputs.browser == 'all' }}
+      #   run: npx playwright test ${{ github.event.inputs.spec }}
+      # - uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: playwright-report
+      #     path: playwright-report/
+      #     retention-days: 30
